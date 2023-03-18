@@ -7,6 +7,22 @@
 @stop
 
 @section('content')
+<?php
+$type_names = [
+    '種別分け',
+	'絵本',
+	'文庫本',
+	'漫画',
+	'参考書',
+	'雑誌',
+];
+
+$statues_names = [
+    '在庫の有無',
+    '在庫あり',
+    '欠品中'
+]
+?>
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -20,25 +36,24 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{ route('item.search') }}" method="GET" class="input-group m-3">
-             　　 <input type="text" name="keyword" value="{{ $keyword }}" placeholder="商品名検索" class="form-control me-3">
-              　　<div class="input-group-append">
-              　　</div>
-              　　<select name="category" value="{{ $category }}" data-toggle="select" class="custom-select me-3">
-                　　<option value="">種別分け</option>
-               　 　<option value="1">絵本</option>
-              　  　<option value="2">文庫本</option>
-               　　 <option value="3">漫画</option>
-                　　<option value="4">参考書</option>
-                　　<option value="5">雑誌</option>
-              　　</select>
-              　　<select name="status" value="{{ $status }}" data-toggle="select" class="custom-select">
-                　　<option value="">在庫の有無</option>
-                　　<option value="1">在庫あり</option>
-                　　<option value="0">欠品中</option>
-             　　　 </select>
-              　　　<input type="submit" value="検索" class="btn btn-primary me-2" name="search_button">
-            　　</form>
+                <form action="{{ route('items.index') }}" method="GET" class="input-group m-3">
+                  <input type="text" name="keyword" value="{{ $keyword }}" placeholder="商品名検索" class="form-control me-3">
+                  <div class="input-group-append">
+                  </div>
+                  <select name="category" data-toggle="select" class="custom-select me-3">
+                   
+                 
+                  @foreach($type_names as $key => $type_name) 
+	               <option value="{{ $key == 0 ? '' : $key  }}" {{ $category == $key ? 'selected' : '' }}>{{ $type_name }}</option>
+                 @endforeach
+                 </select>
+                  <select name="status"  data-toggle="select" class="custom-select">
+                  @foreach($statues_names as $key => $status_name) 
+	               <option value="{{ $key == 0 ? '' : $key  }}" {{ $status == $key ? 'selected' : '' }}>{{ $status_name }}</option>
+                 @endforeach
+                  </select>
+                  <input type="submit" value="検索" class="btn btn-primary me-1" name="search_button">
+                </form>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
@@ -56,13 +71,13 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->price }}</td>
-                                    @if ($item->status == 0)
-                                    <td class="nothing">{{$item->statue}}</td>
-                                    @else
-                                    <td>{{ $item->status }}</td>
-                                    @endif
+                                    <td>{{ $type_names[ $item->type ] }}
+</td>
+                                    <td>{{ $item->price.'円' }}</td>
+                                    
+                                    <td>{{ $item->status > 0 ? '在庫在り' : '欠品中' }}</td>
+
+                                   
                                     <td>{{ $item->detail }}</td>
                                 </tr>
                             @endforeach
@@ -75,6 +90,7 @@
 @stop
 
 @section('css')
+<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 @stop
 
 @section('js')

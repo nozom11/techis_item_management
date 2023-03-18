@@ -25,27 +25,34 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">名前</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="名前">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="名前" required>
                         </div>
 
                         <div class="form-group">
                             <label for="type">種別</label>
-                            <input type="number" class="form-control" id="type" name="type" placeholder="1, 2, 3, ...">
+                            <input type="number" class="form-control" id="type" name="type" placeholder="1:絵本, 2:文庫本, 3:漫画, 4:参考書,5:雑誌" required>
                         </div>
 
                         <div class="form-group">
                             <label for="price">値段</label>
-                            <input type="number" class="form-control" id="price" name="price" placeholder="-----円">
+                            <input type="number" class="form-control" id="price" name="price" placeholder="-----円" required>
                         </div>
 
                         <div class="form-group">
                             <label for="statue">ステータス</label>
-                            <input type="number" class="form-control" id="statue" name="statue" placeholder="在庫状況">
+                            <select name="status"  data-toggle="select" class="custom-select">
+    
+                             <option value="1">在庫あり</option>
+                             <option value="0">欠品中</option>
+                            </select>
+                            
+                            
+                           
                         </div>
 
                         <div class="form-group">
                             <label for="detail">詳細</label>
-                            <input type="text" class="form-control" id="detail" name="detail" placeholder="詳細説明">
+                            <input type="text" class="form-control" id="detail" name="detail" placeholder="詳細説明" required>
                         </div>
                     </div>
 
